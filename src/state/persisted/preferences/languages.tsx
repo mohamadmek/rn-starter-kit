@@ -1,47 +1,23 @@
-import React from "react";
-import { AppLanguage } from "#/locale/languages";
-import {
-  PreferenceDefaults,
-  TPreferenceSchema,
-} from "@/src/state/persisted/preferences/schema";
+import { create } from "zustand";
+import { devtools } from "zustand/middleware";
+import { PreferenceDefaults, TPreferenceSchema } from "./schema";
 
-type TStateContext = TPreferenceSchema["languagePrefs"];
-type ApiContext = {
-  setAppLanguage: (code2: AppLanguage) => void;
-};
+interface ILanguageStore {
+  appLanguage: TPreferenceSchema["languagePrefs"]["appLanguage"];
+  setAppLanguage: (
+    lang: TPreferenceSchema["languagePrefs"]["appLanguage"]
+  ) => void;
+}
 
-const stateContext = React.createContext<TStateContext>(
-  PreferenceDefaults.languagePrefs
-);
-const apiContext = React.createContext<ApiContext>({
-  setAppLanguage: (_: AppLanguage) => {},
-});
-
-export function Provider({ children }: React.PropsWithChildren<{}>) {
-  const [state, setState] = React.useState<TStateContext>({
-    appLanguage: "en",
-  });
-
-  const api = React.useMemo(
-    () => ({
-      setAppLanguage(code2: AppLanguage) {
-        setState({ ...state, appLanguage: code2 });
-      },
+export const useLanguageStore = create<ILanguageStore>()(
+  devtools(
+    (set) => ({
+      test1: "test1",
+      appLanguage: PreferenceDefaults["languagePrefs"]["appLanguage"],
+      setAppLanguage: (by) => set(() => ({ appLanguage: by })),
     }),
-    [state]
-  );
-
-  return (
-    <stateContext.Provider value={state}>
-      <apiContext.Provider value={api}>{children}</apiContext.Provider>
-    </stateContext.Provider>
-  );
-}
-
-export function useLanguagePrefs() {
-  return React.useContext(stateContext);
-}
-
-export function useLanguagePrefsApi() {
-  return React.useContext(apiContext);
-}
+    {
+      name: "language-storage",
+    }
+  )
+);

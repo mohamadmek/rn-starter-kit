@@ -30,7 +30,6 @@ export function HelloWave() {
     <Animated.View style={animatedStyle}>
       {/* <ThemedText style={styles.text}>👋</ThemedText> */}
       <Text>{t`hello`}</Text>
-      <Trans id="nnnn">hey there</Trans>
     </Animated.View>
   );
 }

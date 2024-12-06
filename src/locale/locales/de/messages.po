@@ -20,7 +20,7 @@ msgstr ""
 
 #: app/(tabs)/index.tsx:24
 msgid "HELLO EVERYONE"
-msgstr ""
+msgstr "HALLO ALLEZ"
 
 #: app/(tabs)/index.tsx:23
 #~ msgid "mohamad"
