@@ -18,7 +18,7 @@ msgstr ""
 #~ msgid "naming"
 #~ msgstr ""
 
-#: app/(tabs)/index.tsx:24
+#: app/(tabs)/index.tsx:13
 msgid "HELLO EVERYONE"
 msgstr ""
 

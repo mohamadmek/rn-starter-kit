@@ -2,6 +2,7 @@ import { z } from "zod";
 
 import { findSupportedAppLanguage } from "#/locale/helpers";
 import { deviceLanguageCodes, deviceLocales } from "#/locale/deviceLocales";
+import { deviceStorage } from "@/src/lib/storage";
 
 const schema = z.object({
   colorMode: z.enum(["system", "light", "dark"]),
@@ -23,9 +24,11 @@ export const PreferenceDefaults: TPreferenceSchema = {
   darkTheme: "dim",
   languagePrefs: {
     // try full language tag first, then fallback to language code
-    appLanguage: findSupportedAppLanguage([
-      deviceLocales.at(0)?.languageTag,
-      deviceLanguageCodes[0],
-    ]),
+    appLanguage:
+      deviceStorage.get(["appLanguage"]) ||
+      findSupportedAppLanguage([
+        deviceLocales.at(0)?.languageTag,
+        deviceLanguageCodes[0],
+      ]),
   },
 };

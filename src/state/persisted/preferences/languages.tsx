@@ -12,12 +12,11 @@ interface ILanguageStore {
 export const useLanguageStore = create<ILanguageStore>()(
   devtools(
     (set) => ({
-      test1: "test1",
       appLanguage: PreferenceDefaults["languagePrefs"]["appLanguage"],
       setAppLanguage: (by) => set(() => ({ appLanguage: by })),
     }),
     {
-      name: "language-storage",
+      name: "language-store",
     }
   )
 );

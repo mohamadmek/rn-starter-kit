@@ -30,10 +30,6 @@ export async function dynamicActivate(locale: AppLanguage) {
     }
     default: {
       i18n.loadAndActivate({ locale, messages: messagesEn });
-      await Promise.all([
-        import("@formatjs/intl-pluralrules/locale-data/en"),
-        import("@formatjs/intl-numberformat/locale-data/en"),
-      ]);
       break;
     }
   }
